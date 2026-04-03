@@ -10,10 +10,10 @@
 ---
 
 ## 技術スタック
-- **Frontend:** TypeScript / React / Next.js (App Router) / TailwindCSS
+- **Frontend:** TypeScript / React / Next.js 15 (App Router) / TailwindCSS / lucide-react（アイコン）
 - **Backend:** Supabase (Auth + PostgreSQL + RLS)
 - **Deploy:** Vercel
-- **Repo:** GitHub
+- **Repo:** GitHub（akary-web/shiftb-todo）
 
 ## カラーパレット
 | 用途 | カラー | コード |
@@ -28,14 +28,25 @@
 
 ## 実装済み機能
 - [x] Supabase Auth（メール＋パスワード認証）
-- [x] ミドルウェア（未ログイン→/login リダイレクト）
-- [x] カード管理（追加・編集・削除）
+- [x] ログインパスワードの表示／非表示切り替え
+- [x] 各ページのサーバーサイド認証チェック（未ログイン→/login）
+- [x] カード管理（追加・編集・削除・チェックボックス一括削除）
 - [x] 支出入力（購入日・金額・カテゴリ・メモ）
 - [x] 引き落とし月の自動計算（`lib/calcPaymentMonth.ts`）
-- [x] 入力時リアルタイムプレビュー
-- [x] 支出一覧（編集・削除）
+- [x] 入力時リアルタイムプレビュー（useMemo）
+- [x] 支出一覧（月切り替え・カード別グループ表示・カード別一括削除・編集・削除）
 - [x] ダッシュボード（月別・カード別・カテゴリ別集計）
-- [x] カラーテーマ適用済み
+- [x] カラーテーマ適用済み（ネイビー×ローズピンク×ピンクベージュ）
+- [x] ナビゲーションアイコン（lucide-react）
+- [x] フォーム画面の白枠スタイリング
+
+---
+
+## 重要な実装メモ
+- **middleware.tsは使用しない**（Next.js 15 + Vercelの Edge Runtime 互換問題のため削除済み）
+- 認証チェックは各ページの Server Component で `supabase.auth.getUser()` + `redirect("/login")` で実装
+- Next.js は **v15** を使用（v16はEdge Runtime問題があるため避ける）
+- Supabaseのキー名は `NEXT_PUBLIC_SUPABASE_ANON_KEY`（`sb_publishable_...`の値を設定）
 
 ---
 
@@ -75,26 +86,19 @@ lib/
   types.ts            # 型定義
 
 components/
-  NavBar.tsx
+  NavBar.tsx          # アイコン付きナビ（lucide-react）
   ExpenseForm.tsx / ExpenseEditForm.tsx
   CardForm.tsx / CardEditForm.tsx / CardList.tsx
 ```
 
 ---
 
-## 次にやること（次回セッションの開始点）
+## 次回セッションの開始点
+**Vercelデプロイ済み・動作確認済み。次はブラッシュアップ継続。**
 
-### 1. Vercelデプロイ
-- GitHubにpush（`git add . && git commit -m "init" && git push`）
-- Vercel Dashboard → Import Repository
-- 環境変数を設定：
-  - `NEXT_PUBLIC_SUPABASE_URL`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- Deploy！
-
-### 2. デプロイ後の確認
-- スマホで開いて動作確認
-- カード登録 → 支出入力 → ダッシュボード確認
+改善候補（優先度高め）：
+- [ ] スマホでの動作確認・レイアウト調整
+- [ ] カード追加フォームの白枠スタイリング統一
 
 ---
 
