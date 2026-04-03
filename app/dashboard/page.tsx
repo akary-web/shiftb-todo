@@ -1,9 +1,13 @@
 import { createClient } from "@/lib/supabaseServer";
+import { redirect } from "next/navigation";
 import NavBar from "@/components/NavBar";
 import DashboardClient from "./DashboardClient";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
 
   const { data: cards } = await supabase
     .from("credit_cards")
@@ -19,10 +23,7 @@ export default async function DashboardPage() {
     <>
       <NavBar />
       <main className="max-w-md mx-auto px-4 py-6">
-        <DashboardClient
-          cards={cards ?? []}
-          expenses={expenses ?? []}
-        />
+        <DashboardClient cards={cards ?? []} expenses={expenses ?? []} />
       </main>
     </>
   );
