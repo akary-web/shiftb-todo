@@ -99,6 +99,14 @@ components/
 改善候補（優先度高め）：
 - [ ] スマホでの動作確認・レイアウト調整
 - [ ] カード追加フォームの白枠スタイリング統一
+- [ ] テスターへの共有準備（Supabase → Enable Sign Ups を OFF にして手動招待運用）
+
+---
+
+## 運用メモ
+- Supabaseの無料プランは7日間アクセスがないと停止。週1回は誰かに使ってもらう。
+- テスター招待時はSupabase Dashboard → Authentication → Users → Invite user から手動追加
+- Enable Sign Ups は OFF にして不特定多数の登録を防ぐ
 
 ---
 
