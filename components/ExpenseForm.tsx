@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabaseClient";
 import { calcPaymentMonth } from "@/lib/calcPaymentMonth";
@@ -24,16 +24,14 @@ export default function ExpenseForm({ cards }: Props) {
   const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [previewPayment, setPreviewPayment] = useState("");
-
-  useEffect(() => {
-    if (!cardId || !purchaseDate) return;
+  const previewPayment = useMemo(() => {
+    if (!cardId || !purchaseDate) return "";
     const card = cards.find((c) => c.id === cardId);
-    if (!card) return;
+    if (!card) return "";
     const date = new Date(purchaseDate + "T00:00:00");
     const ym = calcPaymentMonth(date, card.closing_day, card.payment_month_offset);
     const [y, m] = ym.split("-");
-    setPreviewPayment(`${y}年${parseInt(m)}月`);
+    return `${y}年${parseInt(m)}月`;
   }, [cardId, purchaseDate, cards]);
 
   async function handleSubmit(e: React.FormEvent) {
