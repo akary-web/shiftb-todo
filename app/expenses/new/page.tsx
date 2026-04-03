@@ -19,7 +19,9 @@ export default async function NewExpensePage() {
       <NavBar />
       <main className="max-w-md mx-auto px-4 py-6">
         <h1 className="text-xl font-bold mb-6">支出を追加</h1>
-        <ExpenseForm cards={cards ?? []} />
+        <div className="bg-white rounded-2xl border border-pink-50 p-5">
+          <ExpenseForm cards={cards ?? []} />
+        </div>
       </main>
     </>
   );

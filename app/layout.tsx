@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "クレカ支払い管理",
+  title: "Creco（クレコ）｜クレカ支払い管理",
   description: "クレジットカードの引き落とし予定を管理するアプリ",
 };
 

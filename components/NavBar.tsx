@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabaseClient";
+import { LayoutDashboard, List, CreditCard } from "lucide-react";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -16,9 +17,9 @@ export default function NavBar() {
   }
 
   const links = [
-    { href: "/dashboard", label: "ダッシュボード" },
-    { href: "/expenses", label: "支出一覧" },
-    { href: "/cards", label: "カード管理" },
+    { href: "/dashboard", label: "ダッシュボード", icon: LayoutDashboard },
+    { href: "/expenses", label: "支出一覧", icon: List },
+    { href: "/cards", label: "カード管理", icon: CreditCard },
   ];
 
   return (
@@ -29,17 +30,19 @@ export default function NavBar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`text-sm font-medium transition-colors ${
+              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
                 pathname.startsWith(link.href)
                   ? "text-[#FF4F87]"
                   : "text-gray-400 hover:text-[#1E2A44]"
               }`}
             >
+              <link.icon size={15} />
               {link.label}
             </Link>
           ))}
         </nav>
         <button
+          type="button"
           onClick={handleLogout}
           className="text-xs text-gray-400 hover:text-[#FF4F87] transition-colors"
         >

@@ -23,7 +23,9 @@ export default async function ExpenseEditPage({
       <NavBar />
       <main className="max-w-md mx-auto px-4 py-6">
         <h1 className="text-xl font-bold mb-6">支出を編集</h1>
-        <ExpenseEditForm expense={expense} cards={cards ?? []} />
+        <div className="bg-white rounded-2xl border border-pink-50 p-5">
+          <ExpenseEditForm expense={expense} cards={cards ?? []} />
+        </div>
       </main>
     </>
   );

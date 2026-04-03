@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -45,8 +46,9 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-pink-100 p-8">
         <h1 className="text-2xl font-bold text-center mb-1 text-[#1E2A44]">
-          クレカ支払い管理
+          Creco（クレコ）
         </h1>
+        <p className="text-sm text-[#1E2A44] text-center mb-1">クレジットカードの支払い管理</p>
         <p className="text-xs text-[#FF4F87] text-center mb-8 font-medium tracking-wide">
           MY CARD TRACKER
         </p>
@@ -72,14 +74,23 @@ export default function LoginPage() {
             <label className="block text-sm font-medium mb-1 text-[#1E2A44]">
               パスワード
             </label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-pink-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F87]"
-              placeholder="6文字以上"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border border-pink-100 rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F87]"
+                placeholder="6文字以上"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF4F87] text-xs transition-colors"
+              >
+                {showPassword ? "非表示" : "表示"}
+              </button>
+            </div>
           </div>
 
           {error && <p className="text-sm text-red-500">{error}</p>}

@@ -24,7 +24,9 @@ export default async function CardEditPage({
       <NavBar />
       <main className="max-w-md mx-auto px-4 py-6">
         <h1 className="text-xl font-bold mb-6">カードを編集</h1>
-        <CardEditForm card={card} />
+        <div className="bg-white rounded-2xl border border-pink-50 p-5">
+          <CardEditForm card={card} />
+        </div>
       </main>
     </>
   );
